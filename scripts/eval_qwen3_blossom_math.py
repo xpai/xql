@@ -18,7 +18,7 @@ with jsonlines.open(test_path, "r") as reader:
         resp = client.chat.completions.create(model=model, messages=messages, temperature=0.6)
         query = messages[0]['content']
         response = resp.choices[0].message.content
-        ans = response.split("[unused17]")[-1].strip()
+        ans = response.split("</think>")[-1].strip()
         gold_ans = obj["messages"][1]["content"].split("[unused17]")[-1]
         correct = 1 if int(ans) == int(gold_ans) else 0
         res.append([query, response, ans, correct])
